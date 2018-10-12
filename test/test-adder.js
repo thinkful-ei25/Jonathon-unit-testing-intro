@@ -1,3 +1,4 @@
+'use strict';
 // import chai, declare expect variable
 const expect = require('chai').expect;
 
@@ -27,9 +28,11 @@ describe('adder', function() {
   it('should raise error if args not numbers', function() {
     // range of bad inputs where not both are numbers
     const badInputs = [
-      ['a', 1],
-      ['1', 2],
-      [2, false]
+      ['a'],
+      ['1'],
+      [false],
+      [null],
+      [undefined]
     ];
     // prove that an error is raised for bad inputs
     badInputs.forEach(function(input) {
