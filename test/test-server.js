@@ -1,3 +1,4 @@
+'use strict';
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 
@@ -105,22 +106,14 @@ describe("Shopping List", function() {
     return (
       chai
         .request(app)
-        // first have to get so we have an idea of object to update
         .get("/shopping-list")
         .then(function(res) {
           updateData.id = res.body[0].id;
-          // this will return a promise whose value will be the response
-          // object, which we can inspect in the next `then` block. Note
-          // that we could have used a nested callback here instead of
-          // returning a promise and chaining with `then`, but we find
-          // this approach cleaner and easier to read and reason about.
           return chai
             .request(app)
             .put(`/shopping-list/${updateData.id}`)
             .send(updateData);
         })
-        // prove that the PUT request has right status code
-        // and returns updated item
         .then(function(res) {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
